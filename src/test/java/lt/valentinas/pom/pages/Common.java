@@ -1,6 +1,7 @@
 package lt.valentinas.pom.pages;
 
 import lt.valentinas.pom.utils.Driver;
+import lt.valentinas.pom.utils.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
@@ -102,4 +103,14 @@ public class Common {
                 perform();
     }
 
+    public static List<String> getAllProductsTitles(By locator) {
+        String text;
+        List<String> listOfTitles = new ArrayList<>();
+
+        for (WebElement element : getElements(locator)) {
+            text = Utils.deLithuaniseStringToLower(element.getText());
+            listOfTitles.add(text);
+        }
+        return listOfTitles;
+    }
 }
