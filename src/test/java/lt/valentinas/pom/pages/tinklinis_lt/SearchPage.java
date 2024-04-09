@@ -7,6 +7,6 @@ import java.util.List;
 
 public class SearchPage {
     public static List<String> getTitlesList() {
-        return Common.getAllProductsTitles(Locators.Tinklinis_lt.Search.productsTitles);
+        return Common.getAllProductsTitles(Locators.Tinklinis_lt.Search.titlesOfProducts);
     }
 }

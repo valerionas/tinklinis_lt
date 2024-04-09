@@ -7,6 +7,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -49,6 +50,20 @@ public class Common {
 
     public static String getTextFromElement(By locator) {
         return getElement(locator).getText();
+    }
+
+    public static void waitPageLoaded(int waitSeconds) {
+        Driver.getChromeDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(waitSeconds));
+    }
+
+    public static boolean waitElementPresent(By locator, int seconds) {
+        try {
+            WebDriverWait wait = new WebDriverWait(Driver.getChromeDriver(), Duration.ofSeconds(seconds));
+            wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        } catch (TimeoutException e) {
+            return false;
+        }
+        return true;
     }
 
     public static boolean waitElementVisible(By locator, int seconds) {
@@ -112,5 +127,22 @@ public class Common {
             listOfTitles.add(text);
         }
         return listOfTitles;
+    }
+
+    public static void navigateBack() {
+        Driver.getChromeDriver().navigate().back();
+    }
+
+    public static void navigateIndex() {
+        Driver.getChromeDriver().navigate().to("https://tinklinis.lt/");
+    }
+
+    public static boolean isElementPresent(By locator) {
+        return !getElements(locator).isEmpty();
+    }
+
+    public static void selectFromSelectTag(By locator, int optionIndex) {
+        Select dropdown = new Select(getElement(locator));
+        dropdown.selectByIndex(optionIndex);
     }
 }
