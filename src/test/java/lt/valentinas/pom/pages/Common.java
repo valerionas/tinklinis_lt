@@ -129,10 +129,6 @@ public class Common {
         return listOfTitles;
     }
 
-    public static void navigateBack() {
-        Driver.getChromeDriver().navigate().back();
-    }
-
     public static void navigateIndex() {
         Driver.getChromeDriver().navigate().to("https://tinklinis.lt/");
     }
@@ -144,5 +140,31 @@ public class Common {
     public static void selectFromSelectTag(By locator, int optionIndex) {
         Select dropdown = new Select(getElement(locator));
         dropdown.selectByIndex(optionIndex);
+    }
+
+    public static void writeToElement(By locator, String input) {
+        getElement(locator).sendKeys(input);
+    }
+
+    public static boolean waitChange(By locator, int seconds) {
+        List<WebElement> previousState = getElements(locator);
+
+        for (int i = 0; i < seconds * 2; i++) {
+            if (getElements(locator).equals(previousState)) {
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void clickOnProductByIndex(By locatorOfSeveralElements, int index) {
+        WebElement element = getElements(locatorOfSeveralElements).get(index);
+        element.click();
     }
 }
