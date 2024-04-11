@@ -39,4 +39,9 @@ public class IndexPage {
     public static List<String> getTitlesOfPopularProducts() {
         return Common.getAllProductsTitles(Locators.Tinklinis_lt.Index.titlesOfPopularProducts);
     }
+
+    public static void clickOnProductByIndex(int index) {
+        Common.clickOnProductByIndex(Locators.Tinklinis_lt.Index.titlesOfPopularProducts, index);
+        Common.waitPageLoaded(7);
+    }
 }
